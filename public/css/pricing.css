@@ -1,0 +1,142 @@
+ul {
+    padding: 0;
+}
+li {
+    display: block;
+}
+
+.pricing__hero h1 {
+    font-size: 3.5rem;
+}
+
+.pricing__hero p {
+    font-weight: 400;
+}
+
+.pricing__hero span {
+    font-weight: 500;
+    color: #017aff;
+}
+
+.pricing__plans {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pricing__plans--card {
+    border: 1px solid rgb(237, 237, 237);
+    box-shadow: 0px 0 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+
+    height: 500px;
+    width: 300px;
+    padding: 24px;
+}
+
+.pricing__plans--card h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin: 0;
+}
+.pricing__plans--card p {
+    font-size: 0.9rem;
+    margin: 5px 0 20px 0;
+}
+.pricing__card--price {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.price {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+.pricing__card--price p {
+    margin: 0 0 0 6px;
+    font-size: 0.9rem;
+}
+.pricing__plans--card button {
+    width: 100%;
+    margin: 20px 0;
+    font-weight: 500;
+}
+.pricing__card--description li {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+.pricing__card--description img {
+    margin-right: 5px;
+}
+
+.pricing__hero--switch-period{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.pricing__hero--switch-period label{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    font-size: 15px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 1px solid #adb5bd;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 20px;
+    left: 0.27em;
+    bottom: 0.25em;
+    background-color: #adb5bd;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #007bff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(1.4em);
+    background-color: #fff;
+}
