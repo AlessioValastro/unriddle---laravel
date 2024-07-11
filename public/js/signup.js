@@ -1,12 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
     const formStatus = {
         username: false,
         email: false,
         password: false,
-        upload: true,
     };
-    /*
+
     function jsonCheckUsername(json) {
         formStatus.username = !json.exists;
         const usernameElement = document.querySelector(".username");
@@ -19,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
             usernameElement.classList.add("errorj");
         }
     }
-    
+
     function fetchResponse(response) {
         return response.json();
-    }*/
+    }
 
     function checkUsername(event) {
         const input = event.currentTarget;
@@ -32,12 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
             input.parentNode.classList.add("errorj");
             formStatus.username = false;
         } else {
-            formStatus.username = true;
-            document.querySelector(".username span").classList.add("hidden-span");
-            input.parentNode.classList.remove("errorj");
+            fetch("signup/checkUsername/" + encodeURIComponent(input.value))
+                .then(fetchResponse)
+                .then(jsonCheckUsername);
         }
     }
-    /*
+
     function jsonCheckEmail(json) {
         formStatus.email = !json.exists;
         console.log(formStatus);
@@ -50,10 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Email già utilizzata";
             emailElement.classList.add("errorj");
         }
-    } */
+    }
 
     function checkEmail(event) {
-        const CHECK_EMAIL_URL = "/signup/check/email";
         const emailInput = event.currentTarget;
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
             document.querySelector(".email span").textContent =
@@ -61,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".email").classList.add("errorj");
             formStatus.email = false;
         } else {
-            formStatus.email = true;
-            document.querySelector(".email span").classList.add("hidden-span");;
-            document.querySelector(".email").classList.remove("errorj");
+            fetch("/signup/checkEmail/" + encodeURIComponent(emailInput.value))
+                .then(fetchResponse)
+                .then(jsonCheckEmail);
         }
     }
 
@@ -75,7 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".password span").textContent = "";
         } else {
             document.querySelector(".password").classList.add("errorj");
-            document.querySelector(".password span").classList.add("hidden-span");
+            document
+                .querySelector(".password span")
+                .classList.add("hidden-span");
         }
     }
 

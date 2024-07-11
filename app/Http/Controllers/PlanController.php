@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Subscription;
-use App\Models\Review;
-use App\Models\Note;
 use App\Models\Plan;
 
 class PlanController extends BaseController{

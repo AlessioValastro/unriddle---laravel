@@ -16,6 +16,12 @@ class Plan extends Model
         'annual_price',
         'features',
     ];
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'plan_type', 'name');
+    }
+
     public function getFeaturesArrayAttribute()
     {
         return explode(',', $this->features);

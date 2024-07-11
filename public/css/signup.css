@@ -142,6 +142,7 @@ span {
   line-height: 20px;
   letter-spacing: 0.25px;
   transition: opacity 0.3s ease;
+  padding: .5rem 0;
 }
 .hidden-span{
   opacity: 0;

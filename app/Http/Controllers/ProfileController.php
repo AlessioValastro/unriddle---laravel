@@ -79,15 +79,11 @@ class ProfileController extends BaseController{
 
         return response()->json($files);
     }
-    public function searchFiles(Request $request)
+    public function searchFiles($search)
     {
-        $query = $request->input('q', '');
-
-        $files = File::join('accounts', 'files.account_id', '=', 'accounts.id')
-                    ->where('file_name', 'LIKE','%'. $query . '%')
-                    ->select('files.id', 'file_name')
-                    ->limit(8)
-                    ->get();
+        $files = File::where('account_id', Session::get('account_id'))
+        ->where('file_name', 'LIKE', "%{$search}%")
+        ->get(['id', 'file_name']);
 
         return response()->json($files);
     }
@@ -110,11 +106,14 @@ class ProfileController extends BaseController{
     public function deleteFile($id)
     {
         $file = File::find($id);
+        $fav = Favourite::where('file_id' ,$id);
 
         if (!$file) {
             return response("File not found.", 404);
         }
-        
+        if($fav){
+            $fav->delete();
+        }
         $file->delete();
 
         return response()->json([
@@ -169,29 +168,59 @@ class ProfileController extends BaseController{
         
         $note->delete();
 
-        return redirect('/profile');
+        return redirect('profile');
     }
     public function isFavourite($id) {
+        $fav = Favourite::where('file_id', $id)->exists();
+    
+        return response()->json(['favourite' => $fav]);
+    }
+    public function addToFavourite($id) {
+        $file = File::find($id);
+    
+        if (!$file) {
+            return response()->json(['error' => 'File non trovato.'], 404);
+        }
+    
+        $existingFav = Favourite::where('file_id', $file->id)->exists();
+        if ($existingFav) {
+            return response()->json(['error' => 'Il file è già nei preferiti.'], 400);
+        }
+    
+        $newFav = new Favourite;
+        $newFav->file_id = $file->id;
+        $newFav->file_name = $file->file_name;
+        $newFav->file_size = $file->file_size;
+        $newFav->content = $file->content;
+        $newFav->account_id = $file->account_id;
+        $newFav->save();
+    
+        return response()->json(['message' => 'File aggiunto ai preferiti con successo']);
+    }
+    public function deleteFavourite($id) {
         $fav = Favourite::where('file_id', $id)->first();
     
-        if ($fav) {
-            return json_encode(['favourite' => true]);
-        } else {
-            return json_encode(['favourite' => false]);
+        if (!$fav) {
+            return response()->json(['error' => 'File non trovato nei preferiti.'], 404);
         }
+    
+        $fav->delete();
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Preferito eliminato con successo.'
+        ]);
     }
-    public function addToFavourite($id){
-        $file = File::find($id);
 
-        $ffile = new Favourite;
-        $ffile->file_id = $file->id;
-        $ffile->file_name = $file->file_name;
-        $ffile->file_size = $file->file_size;
-        $ffile->content = $file->content;
-        $ffile->account_id = $file->account_id;
-        $ffile->save();
+    public function favouritesLibrary()
+    {
+        $user = Session::get('account_id');
 
-        return response()->json(['message' => 'File aggiunto ai preferiti con successo']);
+        $favs = Favourite::where('account_id', $user)
+                     ->orderBy('file_name')
+                     ->get(['file_id','file_name']);
+
+        return response()->json($favs);
     }
     
     public function logout(){

@@ -49,7 +49,7 @@
                             <strong>{{ $plan->name }} plan</strong>.
                         </label>
                         <ul>
-                            <h3>Feature your not able to use anymore:</h3>
+                            <h3>Features you can't use anymore:</h3>
                             @foreach ($ex_plan->featuresArray as $feature)
                                 <li>{{ $feature }}</li>
                             @endforeach

@@ -25,12 +25,12 @@
             @csrf
             <div class="username">
                 <input type='text' name='username' placeholder="Your username" value='{{ old("username") }}'>
-                <span>Nome utente non disponibile</span>     
+                <span></span>     
             </div>
 
             <div class="email">
                 <input type='text' name='email' placeholder="Your email" value='{{ old("email") }}'>
-                <span>Indirizzo email non valido</span>
+                <span></span>
             </div>
 
             <div class="password">

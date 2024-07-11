@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Prompts\Note;
 
 class Account extends Model
 {
@@ -20,16 +18,23 @@ class Account extends Model
         return $this->hasMany(File::class, 'account_id');
     }
 
-    public function reviews()
+    public function review()
     {
         return $this->hasOne(Review::class, 'account_id');
     }
 
-    public function subscriptions(){
+    public function subscriptions()
+    {
         return $this->hasOne(Subscription::class, 'account_id');
     }
 
-    public function notes(){
+    public function notes()
+    {
         return $this->hasMany(Note::class, 'account_id');
+    }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'account_id');
     }
 }

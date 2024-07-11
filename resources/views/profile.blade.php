@@ -28,11 +28,10 @@
                     </strong>plan</span>
                 <img src={{ asset('images/avatar/default_avatar.png') }} alt="" class="avatar">
                 <div class="profile-managment">
-                    <a href="">Change username</a>
-                    <a href="">Change password</a>
-                    <a href="">Change avatar</a>
+                    <a href="/modify-account/username">Change username</a>
+                    <a href="/modify-account/password">Change password</a>
                     <a href="/pricing">Change plan</a>
-                    <a href="" style="color: red">Delete your profile</a>
+                    <a href="/delete-account" style="color: red">Delete your account</a>
                 </div>
                 <button id="support">Support</button>
                 <button><a href="{{ route('logout') }}" id="logout">Log out</a></button>
