@@ -20,7 +20,6 @@ class ProfileController extends BaseController{
     if(!Session::has('account_id')){
         return redirect('login');
     }
-
         $account = Account::find(Session::get('account_id'));
         $username = $account->username;
         $subscription = Subscription::where('account_id', Session::get('account_id'))->first();

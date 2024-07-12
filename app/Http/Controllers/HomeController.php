@@ -10,13 +10,18 @@ class HomeController extends BaseController{
     
     public function home(){
         $reviews = Review::all();
+        $account = Session::get('account_id');
             
-        return view('home')->with("reviews", $reviews)->with('account', Session::get('account_id'));
+        return view('home')
+            ->with("reviews", $reviews)
+            ->with('account', $account);
     }
 
     public function pricing(){
 
-        return view('pricing');
+        $account = Session::get('account_id');
+        return view('pricing')
+        ->with('account', $account);
     }
 
 }
